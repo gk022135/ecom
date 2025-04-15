@@ -11,10 +11,9 @@ function Home() {
     try {
       const res = await fetch(url_api);
       const data = await res.json();
-      setDatas(data); 
-      console.log("Data fetched:", data); 
+      setDatas(data);
     } catch (error) {
-      console.error("Error fetching data:", error); 
+      console.error("Error fetching data:", error);
       setDatas([]);
     }
     setLoading(false);
@@ -22,15 +21,22 @@ function Home() {
 
   useEffect(() => {
     fetchData();
-  },[]);
+  }, []);
 
   return (
-    <div className="grid grid-cols-4">
-      <h1 className="bg-red-300 text-amber-600">Home Page</h1>
+    <div className="min-h-screen bg-gray-100 px-4 py-8">
+      <h1 className="text-3xl md:text-4xl font-bold text-center text-indigo-600 mb-8">
+        🛒 Explore Our Products
+      </h1>
+
       {loading ? (
-        <h1>Loading.....</h1>
+        <div className="text-center text-lg text-gray-700 font-semibold">Loading products...</div>
       ) : (
-        <Card product = {datas}/>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {datas.map((product) => (
+            <Card key={product.id} product={product} />
+          ))}
+        </div>
       )}
     </div>
   );

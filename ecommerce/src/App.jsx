@@ -6,6 +6,7 @@ import Cart from './components/Pages/Cart';
 import ProductPage from './components/Pages/ProductPage';
 import NavBar from './components/NavBar';
 import './App.css';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -13,19 +14,15 @@ function App() {
       {/* Navbar */}
       <NavBar />
       
-      {/* Title */}
-      <h1 className='text-2xl font-semibold text-center py-4 bg-slate-500 text-white'>
-        Hello
-      </h1>
-      
       {/* Routes */}
       <div className="p-6">
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/cart/:cart' element={<Cart />} />
-          <Route path='/products/:data/:productId' element={<ProductPage />} />
+          <Route path='/cart' element={<Cart />} />
+          <Route path="/product/:id" element={<ProductPage />} />
         </Routes>
       </div>
+      <ToastContainer />
     </div>
   );
 }

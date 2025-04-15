@@ -1,19 +1,25 @@
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-function Details({ id, title, price, description, rating }) {
-    console.log("id of product is ",id)
-    return (
-        <div className="flex flex-col w-[400px]">
-            <NavLink to={`/products/${title}/${id}`}>
-                <h1>{title}</h1>
-            </NavLink>
+function Details({ id, title, description, rating, price }) {
+  const shortTitle = title?.split(" ").slice(0, 10).join(" ") + (title?.split(" ").length > 10 ? "..." : "");
+  const shortDesc = description?.split(" ").slice(0, 80).join(" ") + "...";
 
-            <p>{description}</p>
-            <h2>{price}</h2>
-            <h3>{rating.rate}</h3>
-            <h3>{rating.count}</h3>
-
+  return (
+    <Link to={`/product/${id}`} className="block">
+      <div className="mt-4 flex flex-col bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow duration-200">
+        <h2 className="text-lg font-semibold text-gray-800 mb-2">
+          {shortTitle}
+        </h2>
+        <p className="text-gray-600 text-sm mb-2 leading-relaxed overflow-hidden text-ellipsis line-clamp-3">
+          {shortDesc}
+        </p>
+        <div className="flex justify-between items-center text-sm text-gray-700 mt-2">
+          <span>⭐ {rating?.rate ?? 0} ({rating?.count ?? 0})</span>
+          <span className="font-semibold text-indigo-600">${price.toFixed(2)}</span>
         </div>
-    );
-};
+      </div>
+    </Link>
+  );
+}
+
 export default Details;
